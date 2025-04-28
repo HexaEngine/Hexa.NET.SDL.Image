@@ -45,17 +45,6 @@ jobs:
         ref: 'release-2.8.8'
         submodules: true
 
-    - name: Install Dependencies on Ubuntu
-      if: matrix.os == 'ubuntu-latest'
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y \
-          libsdl2-dev \
-          libpng-dev \
-          libjpeg-dev \
-          libtiff-dev \
-          libwebp-dev
-
     - name: Install Dependencies on macOS
       if: matrix.os == 'macos-latest'
       run: |
@@ -96,7 +85,16 @@ jobs:
           libdecor-0-dev \
           qtwayland5 \
           libxkbcommon-dev \
-          libsndio-dev
+          libsndio-dev \
+          libpng-dev \
+          libjpeg-dev \
+          libtiff-dev \
+          libwebp-dev
+
+    - name: Install Cross-Compilation Tools for ARM64
+      if: matrix.os == 'ubuntu-latest' && matrix.arch == 'arm64'
+      run: |
+        sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
 
     - name: Install vcpkg on Linux and macOS
       if: runner.os != 'Windows'
