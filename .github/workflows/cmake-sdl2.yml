@@ -101,7 +101,7 @@ jobs:
     - name: Install vcpkg on Linux and macOS
       if: runner.os != 'Windows'
       run: |
-        cd cimgui 
+        cd SDLImage 
         git clone https://github.com/microsoft/vcpkg.git
         ./vcpkg/bootstrap-vcpkg.sh
         ./vcpkg/vcpkg install sdl2 --triplet ${{ matrix.vcpkg-triplet }}
@@ -109,7 +109,7 @@ jobs:
     - name: Install vcpkg on Windows
       if: runner.os == 'Windows'
       run: |
-        cd cimgui 
+        cd SDLImage 
         git clone https://github.com/microsoft/vcpkg.git
         ./vcpkg/bootstrap-vcpkg.bat
         ./vcpkg/vcpkg.exe install sdl2 --triplet ${{ matrix.vcpkg-triplet }}
