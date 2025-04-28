@@ -1,0 +1,152 @@
+name: Build SDL2 Image Libraries
+
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            arch: x86_64
+            cmake-arch: x64
+            vcpkg-triplet: x64-linux-dynamic
+          - os: ubuntu-latest
+            arch: arm64
+            cmake-arch: aarch64
+            vcpkg-triplet: arm64-linux-dynamic
+          - os: windows-latest
+            arch: x86_64
+            cmake-arch: x64
+            vcpkg-triplet: x64-windows
+          - os: windows-latest
+            arch: x86
+            cmake-arch: win32
+            vcpkg-triplet: x86-windows
+          - os: windows-latest
+            arch: arm64
+            cmake-arch: arm64
+            vcpkg-triplet: arm64-windows
+          - os: macos-latest
+            arch: x86_64
+            cmake-arch: x86_64
+            vcpkg-triplet: x64-osx-dynamic
+          - os: macos-latest
+            arch: arm64
+            cmake-arch: arm64
+            vcpkg-triplet: arm64-osx-dynamic
+      
+    steps:
+    - uses: actions/checkout@v4.1.7
+      with:
+        repository: 'libsdl-org/SDL_image'
+        path: 'SDLImage'
+        ref: 'release-2.8.8'
+        submodules: true
+
+    - name: Install Dependencies on Ubuntu
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          libsdl2-dev \
+          libpng-dev \
+          libjpeg-dev \
+          libtiff-dev \
+          libwebp-dev
+
+    - name: Install Dependencies on macOS
+      if: matrix.os == 'macos-latest'
+      run: |
+        brew install sdl2 libpng jpeg libtiff webp
+
+    - name: Install dependencies on Ubuntu
+      if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
+      run: |
+          sudo apt-get update && sudo apt-get install -y \
+          build-essential \
+          cmake \
+          libasound2-dev \
+          libpulse-dev \
+          libaudio-dev \
+          libx11-dev \
+          libxext-dev \
+          libxrandr-dev \
+          libxcursor-dev \
+          libxfixes-dev \
+          libxi-dev \
+          libxinerama-dev \
+          libxss-dev \
+          libwayland-dev \
+          libwayland-egl-backend-dev \
+          libdbus-1-dev \
+          libudev-dev \
+          libgles2-mesa-dev \
+          libegl1-mesa-dev \
+          libgl1-mesa-dev \
+          libibus-1.0-dev \
+          fcitx-libs-dev \
+          libsamplerate0-dev \
+          ccache \
+          libjack-jackd2-dev \
+          libdrm-dev \
+          libpipewire-0.3-dev \
+          libvulkan-dev \
+          libdecor-0-dev \
+          qtwayland5 \
+          libxkbcommon-dev \
+          libsndio-dev
+
+    - name: Install vcpkg on Linux and macOS
+      if: runner.os != 'Windows'
+      run: |
+        cd cimgui 
+        git clone https://github.com/microsoft/vcpkg.git
+        ./vcpkg/bootstrap-vcpkg.sh
+        ./vcpkg/vcpkg install sdl2 --triplet ${{ matrix.vcpkg-triplet }}
+
+    - name: Install vcpkg on Windows
+      if: runner.os == 'Windows'
+      run: |
+        cd cimgui 
+        git clone https://github.com/microsoft/vcpkg.git
+        ./vcpkg/bootstrap-vcpkg.bat
+        ./vcpkg/vcpkg.exe install sdl2 --triplet ${{ matrix.vcpkg-triplet }}
+
+    - name: Configure SDLImage with CMake for ARM64 on Linux
+      if: matrix.os == 'ubuntu-latest' && matrix.arch == 'arm64'
+      run: |
+        cd SDLImage
+        cmake -S ./ -B ./build -DBUILD_SHARED_LIBS=ON -DSDL2IMAGE_SAMPLES=OFF -DSDL2IMAGE_TESTS=OFF -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg-triplet }} -DCMAKE_SYSTEM_PROCESSOR=aarch64 -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++
+
+    - name: Configure SDLImage with CMake for Linux
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        cd SDLImage
+        cmake -S ./ -B ./build -DBUILD_SHARED_LIBS=ON -DSDL2IMAGE_SAMPLES=OFF -DSDL2IMAGE_TESTS=OFF -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg-triplet }}
+
+    - name: Configure SDLImage with CMake
+      if: matrix.os == 'windows-latest'
+      run: |
+        cd SDLImage
+        cmake -S ./ -B ./build -DBUILD_SHARED_LIBS=ON -DSDL2IMAGE_SAMPLES=OFF -DSDL2IMAGE_TESTS=OFF -A ${{ matrix.arch-cmake }} -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg-triplet }}
+        
+    - name: Configure SDLImage with CMake for macOS
+      if: matrix.os == 'macos-latest'
+      run: | 
+        cd SDLImage
+        cmake -S ./ -B ./build -DBUILD_SHARED_LIBS=ON -DSDL2IMAGE_SAMPLES=OFF -DSDL2IMAGE_TESTS=OFF -DCMAKE_OSX_ARCHITECTURES=${{ matrix.cmake-arch }} -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg-triplet }}
+
+    - name: Build SDLImage
+      run: cmake --build SDLImage/build --config Release
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4.3.4
+      with:
+        name: sdl-image2-${{ matrix.os }}-${{ matrix.arch }}-artifacts 
+        path: |
+          SDLImage/build/Release/*.dll
+          SDLImage/build/*.so
+          SDLImage/build/*.dylib
+        if-no-files-found: ignore # 'warn' or 'ignore' or 'error'
