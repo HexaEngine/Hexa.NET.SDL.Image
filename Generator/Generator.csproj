@@ -2,256 +2,572 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HexaGen" Version="1.0.1" />
+    <PackageReference Include="HexaGen" Version="1.1.15-rc30" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="generator.json">
+    <None Update="sdl2\begin_code.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\begin_code.h">
+    <None Update="sdl2\close_code.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\close_code.h">
+    <None Update="sdl2\main.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL.h">
+    <None Update="sdl2\SDL.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_assert.h">
+    <None Update="sdl2\SDL_assert.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_atomic.h">
+    <None Update="sdl2\SDL_atomic.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_audio.h">
+    <None Update="sdl2\SDL_audio.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_bits.h">
+    <None Update="sdl2\SDL_bits.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_blendmode.h">
+    <None Update="sdl2\SDL_blendmode.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_clipboard.h">
+    <None Update="sdl2\SDL_clipboard.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_config.h">
+    <None Update="sdl2\SDL_config.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_cpuinfo.h">
+    <None Update="sdl2\SDL_config.h.cmake">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_egl.h">
+    <None Update="sdl2\SDL_config.h.in">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_endian.h">
+    <None Update="sdl2\SDL_config_android.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_error.h">
+    <None Update="sdl2\SDL_config_emscripten.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_events.h">
+    <None Update="sdl2\SDL_config_iphoneos.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_filesystem.h">
+    <None Update="sdl2\SDL_config_macosx.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_gamecontroller.h">
+    <None Update="sdl2\SDL_config_minimal.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_gesture.h">
+    <None Update="sdl2\SDL_config_ngage.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_guid.h">
+    <None Update="sdl2\SDL_config_os2.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_haptic.h">
+    <None Update="sdl2\SDL_config_pandora.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_hidapi.h">
+    <None Update="sdl2\SDL_config_windows.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_hints.h">
+    <None Update="sdl2\SDL_config_wingdk.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_joystick.h">
+    <None Update="sdl2\SDL_config_winrt.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_keyboard.h">
+    <None Update="sdl2\SDL_config_xbox.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_keycode.h">
+    <None Update="sdl2\SDL_copying.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_loadso.h">
+    <None Update="sdl2\SDL_cpuinfo.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_locale.h">
+    <None Update="sdl2\SDL_egl.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_log.h">
+    <None Update="sdl2\SDL_endian.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_main.h">
+    <None Update="sdl2\SDL_error.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_messagebox.h">
+    <None Update="sdl2\SDL_events.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_metal.h">
+    <None Update="sdl2\SDL_filesystem.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_misc.h">
+    <None Update="sdl2\SDL_gamecontroller.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_mouse.h">
+    <None Update="sdl2\SDL_gesture.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_mutex.h">
+    <None Update="sdl2\SDL_guid.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_name.h">
+    <None Update="sdl2\SDL_haptic.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_opengl.h">
+    <None Update="sdl2\SDL_hidapi.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_opengles.h">
+    <None Update="sdl2\SDL_hints.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_opengles2.h">
+    <None Update="sdl2\SDL_joystick.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_opengles2_gl2.h">
+    <None Update="sdl2\SDL_keyboard.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_opengles2_gl2ext.h">
+    <None Update="sdl2\SDL_keycode.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_opengles2_gl2platform.h">
+    <None Update="sdl2\SDL_loadso.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_opengles2_khrplatform.h">
+    <None Update="sdl2\SDL_locale.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_opengl_glext.h">
+    <None Update="sdl2\SDL_log.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_pixels.h">
+    <None Update="sdl2\SDL_main.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_platform.h">
+    <None Update="sdl2\SDL_messagebox.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_power.h">
+    <None Update="sdl2\SDL_metal.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_quit.h">
+    <None Update="sdl2\SDL_misc.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_rect.h">
+    <None Update="sdl2\SDL_mouse.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_render.h">
+    <None Update="sdl2\SDL_mutex.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_revision.h">
+    <None Update="sdl2\SDL_name.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_rwops.h">
+    <None Update="sdl2\SDL_opengl.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_scancode.h">
+    <None Update="sdl2\SDL_opengles.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_sensor.h">
+    <None Update="sdl2\SDL_opengles2.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_shape.h">
+    <None Update="sdl2\SDL_opengles2_gl2.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_stdinc.h">
+    <None Update="sdl2\SDL_opengles2_gl2ext.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_surface.h">
+    <None Update="sdl2\SDL_opengles2_gl2platform.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_system.h">
+    <None Update="sdl2\SDL_opengles2_khrplatform.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_syswm.h">
+    <None Update="sdl2\SDL_opengl_glext.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_test.h">
+    <None Update="sdl2\SDL_pixels.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_test_assert.h">
+    <None Update="sdl2\SDL_platform.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_test_common.h">
+    <None Update="sdl2\SDL_power.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_test_compare.h">
+    <None Update="sdl2\SDL_quit.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_test_crc32.h">
+    <None Update="sdl2\SDL_rect.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_test_font.h">
+    <None Update="sdl2\SDL_render.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_test_fuzzer.h">
+    <None Update="sdl2\SDL_revision.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_test_harness.h">
+    <None Update="sdl2\SDL_revision.h.cmake">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_test_images.h">
+    <None Update="sdl2\SDL_rwops.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_test_log.h">
+    <None Update="sdl2\SDL_scancode.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_test_md5.h">
+    <None Update="sdl2\SDL_sensor.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_test_memory.h">
+    <None Update="sdl2\SDL_shape.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_test_random.h">
+    <None Update="sdl2\SDL_stdinc.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_thread.h">
+    <None Update="sdl2\SDL_surface.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_timer.h">
+    <None Update="sdl2\SDL_system.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_touch.h">
+    <None Update="sdl2\SDL_syswm.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_types.h">
+    <None Update="sdl2\SDL_test.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_version.h">
+    <None Update="sdl2\SDL_test_assert.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_video.h">
+    <None Update="sdl2\SDL_test_common.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sdl\SDL_vulkan.h">
+    <None Update="sdl2\SDL_test_compare.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="include\SDL_image.h">
+    <None Update="sdl2\SDL_test_crc32.h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="sdl2\SDL_test_font.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl2\SDL_test_fuzzer.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl2\SDL_test_harness.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl2\SDL_test_images.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl2\SDL_test_log.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl2\SDL_test_md5.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl2\SDL_test_memory.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl2\SDL_test_random.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl2\SDL_thread.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl2\SDL_timer.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl2\SDL_touch.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl2\SDL_types.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl2\SDL_version.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl2\SDL_video.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl2\SDL_vulkan.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl2_image\generator.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl2_image\include\SDL_image.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_assert.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_asyncio.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_atomic.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_audio.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_begin_code.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_bits.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_blendmode.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_camera.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_clipboard.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_close_code.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_copying.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_cpuinfo.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_dialog.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_egl.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_endian.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_error.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_events.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_filesystem.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_gamepad.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_gpu.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_guid.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_haptic.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_hidapi.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_hints.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_init.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_intrin.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_iostream.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_joystick.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_keyboard.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_keycode.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_loadso.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_locale.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_log.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_main.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_main_impl.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_messagebox.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_metal.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_misc.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_mouse.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_mutex.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_oldnames.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_opengl.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_opengles.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_opengles2.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_opengles2_gl2.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_opengles2_gl2ext.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_opengles2_gl2platform.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_opengles2_khrplatform.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_opengl_glext.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_pen.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_pixels.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_platform.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_platform_defines.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_power.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_process.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_properties.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_rect.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_render.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_revision.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_scancode.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_sensor.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_stdinc.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_storage.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_surface.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_system.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_test.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_test_assert.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_test_common.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_test_compare.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_test_crc32.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_test_font.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_test_fuzzer.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_test_harness.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_test_log.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_test_md5.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_test_memory.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_thread.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_time.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_timer.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_touch.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_tray.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_version.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_video.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3\SDL_vulkan.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3_image\generator.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sdl3_image\include\SDL_image.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="sdl3_image\include\" />
   </ItemGroup>
 
 </Project>

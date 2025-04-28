@@ -17,7 +17,7 @@ using Hexa.NET.SDL2;
 namespace Hexa.NET.SDL2.Image
 {
 	/// <summary>
-	/// Animated image support<br/>
+	/// Animated image support.<br/>
 	/// Currently only animated GIFs are supported.<br/>
 	/// </summary>
 	[NativeName(NativeNameType.StructOrClass, "IMG_Animation")]
@@ -34,10 +34,10 @@ namespace Hexa.NET.SDL2.Image
 		[NativeName(NativeNameType.Type, "int")]
 		public int Count;
 		[NativeName(NativeNameType.Field, "frames")]
-		[NativeName(NativeNameType.Type, "SDL_Surface**")]
+		[NativeName(NativeNameType.Type, "SDL_Surface * *")]
 		public unsafe SDLSurface** Frames;
 		[NativeName(NativeNameType.Field, "delays")]
-		[NativeName(NativeNameType.Type, "int*")]
+		[NativeName(NativeNameType.Type, "int *")]
 		public unsafe int* Delays;
 
 		public unsafe IMGAnimation(int w = default, int h = default, int count = default, SDLSurface** frames = default, int* delays = default)

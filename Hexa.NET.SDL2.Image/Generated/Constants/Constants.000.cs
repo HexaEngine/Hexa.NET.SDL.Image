@@ -24,8 +24,8 @@ namespace Hexa.NET.SDL2.Image
 		public const int SDL_IMAGE_MINOR_VERSION = 8;
 
 		[NativeName(NativeNameType.Const, "SDL_IMAGE_PATCHLEVEL")]
-		[NativeName(NativeNameType.Value, "2")]
-		public const int SDL_IMAGE_PATCHLEVEL = 2;
+		[NativeName(NativeNameType.Value, "8")]
+		public const int SDL_IMAGE_PATCHLEVEL = 8;
 
 	}
 }

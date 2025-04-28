@@ -19,6 +19,45 @@ namespace Hexa.NET.SDL2.Image
 	{
 
 		/// <summary>
+		/// Load a XV image directly.<br/>
+		/// If you know you definitely have a XV image, you can call this function,<br/>
+		/// which will skip SDL_image's file format detection routines. Generally it's<br/>
+		/// better to use the abstract interfaces; also, there is only an SDL_RWops<br/>
+		/// interface available here.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "IMG_LoadXV_RW")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurface* LoadXVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* src)
+		{
+			SDLSurface* ret = LoadXVRWNative(src);
+			return ret;
+		}
+
+		/// <summary>
+		/// Load a XV image directly.<br/>
+		/// If you know you definitely have a XV image, you can call this function,<br/>
+		/// which will skip SDL_image's file format detection routines. Generally it's<br/>
+		/// better to use the abstract interfaces; also, there is only an SDL_RWops<br/>
+		/// interface available here.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "IMG_LoadXV_RW")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurface* LoadXVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] ref SDLRWops src)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				SDLSurface* ret = LoadXVRWNative((SDLRWops*)psrc);
+				return ret;
+			}
+		}
+
+		/// <summary>
 		/// Load a WEBP image directly.<br/>
 		/// If you know you definitely have a WEBP image, you can call this function,<br/>
 		/// which will skip SDL_image's file format detection routines. Generally it's<br/>
@@ -29,10 +68,32 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadWEBP_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		public static SDLSurface* IMGLoadWEBPRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* LoadWEBPRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* src)
 		{
-			SDLSurface* ret = IMGLoadWEBPRWNative(src);
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, SDLSurface*>)funcTable[45])(src);
+			#else
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[45])((nint)src);
+			#endif
+		}
+
+		/// <summary>
+		/// Load a WEBP image directly.<br/>
+		/// If you know you definitely have a WEBP image, you can call this function,<br/>
+		/// which will skip SDL_image's file format detection routines. Generally it's<br/>
+		/// better to use the abstract interfaces; also, there is only an SDL_RWops<br/>
+		/// interface available here.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "IMG_LoadWEBP_RW")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurface* LoadWEBPRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* src)
+		{
+			SDLSurface* ret = LoadWEBPRWNative(src);
 			return ret;
 		}
 
@@ -47,12 +108,12 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadWEBP_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		public static SDLSurface* IMGLoadWEBPRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurface* LoadWEBPRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] ref SDLRWops src)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
-				SDLSurface* ret = IMGLoadWEBPRWNative((SDLRWops*)psrc);
+				SDLSurface* ret = LoadWEBPRWNative((SDLRWops*)psrc);
 				return ret;
 			}
 		}
@@ -69,13 +130,14 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadSizedSVG_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		internal static SDLSurface* IMGLoadSizedSVGRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height)
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* LoadSizedSVGRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* src, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int, int, SDLSurface*>)vt[46])(src, width, height);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int, int, SDLSurface*>)funcTable[46])(src, width, height);
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, int, int, nint>)vt[46])((nint)src, width, height);
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, int, int, nint>)funcTable[46])((nint)src, width, height);
 			#endif
 		}
 
@@ -91,10 +153,10 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadSizedSVG_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		public static SDLSurface* IMGLoadSizedSVGRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height)
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurface* LoadSizedSVGRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* src, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height)
 		{
-			SDLSurface* ret = IMGLoadSizedSVGRWNative(src, width, height);
+			SDLSurface* ret = LoadSizedSVGRWNative(src, width, height);
 			return ret;
 		}
 
@@ -110,12 +172,12 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadSizedSVG_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		public static SDLSurface* IMGLoadSizedSVGRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height)
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurface* LoadSizedSVGRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] ref SDLRWops src, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
-				SDLSurface* ret = IMGLoadSizedSVGRWNative((SDLRWops*)psrc, width, height);
+				SDLSurface* ret = LoadSizedSVGRWNative((SDLRWops*)psrc, width, height);
 				return ret;
 			}
 		}
@@ -132,13 +194,14 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_ReadXPMFromArray")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		internal static SDLSurface* IMGReadXPMFromArrayNative([NativeName(NativeNameType.Param, "xpm")] [NativeName(NativeNameType.Type, "char**")] byte** xpm)
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* ReadXPMFromArrayNative([NativeName(NativeNameType.Param, "xpm")] [NativeName(NativeNameType.Type, "char * *")] byte** xpm)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte**, SDLSurface*>)vt[47])(xpm);
+			return ((delegate* unmanaged[Cdecl]<byte**, SDLSurface*>)funcTable[47])(xpm);
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[47])((nint)xpm);
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[47])((nint)xpm);
 			#endif
 		}
 
@@ -154,10 +217,10 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_ReadXPMFromArray")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		public static SDLSurface* IMGReadXPMFromArray([NativeName(NativeNameType.Param, "xpm")] [NativeName(NativeNameType.Type, "char**")] byte** xpm)
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurface* ReadXPMFromArray([NativeName(NativeNameType.Param, "xpm")] [NativeName(NativeNameType.Type, "char * *")] byte** xpm)
 		{
-			SDLSurface* ret = IMGReadXPMFromArrayNative(xpm);
+			SDLSurface* ret = ReadXPMFromArrayNative(xpm);
 			return ret;
 		}
 
@@ -173,12 +236,12 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_ReadXPMFromArray")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		public static SDLSurface* IMGReadXPMFromArray([NativeName(NativeNameType.Param, "xpm")] [NativeName(NativeNameType.Type, "char**")] ref byte* xpm)
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurface* ReadXPMFromArray([NativeName(NativeNameType.Param, "xpm")] [NativeName(NativeNameType.Type, "char * *")] ref byte* xpm)
 		{
 			fixed (byte** pxpm = &xpm)
 			{
-				SDLSurface* ret = IMGReadXPMFromArrayNative((byte**)pxpm);
+				SDLSurface* ret = ReadXPMFromArrayNative((byte**)pxpm);
 				return ret;
 			}
 		}
@@ -195,13 +258,14 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_ReadXPMFromArrayToRGB888")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		internal static SDLSurface* IMGReadXPMFromArrayToRGB888Native([NativeName(NativeNameType.Param, "xpm")] [NativeName(NativeNameType.Type, "char**")] byte** xpm)
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* ReadXPMFromArrayToRGB888Native([NativeName(NativeNameType.Param, "xpm")] [NativeName(NativeNameType.Type, "char * *")] byte** xpm)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte**, SDLSurface*>)vt[48])(xpm);
+			return ((delegate* unmanaged[Cdecl]<byte**, SDLSurface*>)funcTable[48])(xpm);
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[48])((nint)xpm);
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[48])((nint)xpm);
 			#endif
 		}
 
@@ -217,10 +281,10 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_ReadXPMFromArrayToRGB888")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		public static SDLSurface* IMGReadXPMFromArrayToRGB888([NativeName(NativeNameType.Param, "xpm")] [NativeName(NativeNameType.Type, "char**")] byte** xpm)
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurface* ReadXPMFromArrayToRGB888([NativeName(NativeNameType.Param, "xpm")] [NativeName(NativeNameType.Type, "char * *")] byte** xpm)
 		{
-			SDLSurface* ret = IMGReadXPMFromArrayToRGB888Native(xpm);
+			SDLSurface* ret = ReadXPMFromArrayToRGB888Native(xpm);
 			return ret;
 		}
 
@@ -236,12 +300,12 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_ReadXPMFromArrayToRGB888")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		public static SDLSurface* IMGReadXPMFromArrayToRGB888([NativeName(NativeNameType.Param, "xpm")] [NativeName(NativeNameType.Type, "char**")] ref byte* xpm)
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurface* ReadXPMFromArrayToRGB888([NativeName(NativeNameType.Param, "xpm")] [NativeName(NativeNameType.Type, "char * *")] ref byte* xpm)
 		{
 			fixed (byte** pxpm = &xpm)
 			{
-				SDLSurface* ret = IMGReadXPMFromArrayToRGB888Native((byte**)pxpm);
+				SDLSurface* ret = ReadXPMFromArrayToRGB888Native((byte**)pxpm);
 				return ret;
 			}
 		}
@@ -255,12 +319,13 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SavePNG")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int IMGSavePNGNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] byte* file)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SavePNGNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, int>)vt[49])(surface, file);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, int>)funcTable[49])(surface, file);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[49])((nint)surface, (nint)file);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[49])((nint)surface, (nint)file);
 			#endif
 		}
 
@@ -273,9 +338,9 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SavePNG")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] byte* file)
+		public static int SavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
 		{
-			int ret = IMGSavePNGNative(surface, file);
+			int ret = SavePNGNative(surface, file);
 			return ret;
 		}
 
@@ -288,11 +353,11 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SavePNG")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] byte* file)
+		public static int SavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				int ret = IMGSavePNGNative((SDLSurface*)psurface, file);
+				int ret = SavePNGNative((SDLSurface*)psurface, file);
 				return ret;
 			}
 		}
@@ -306,11 +371,11 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SavePNG")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ref byte file)
+		public static int SavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ref byte file)
 		{
 			fixed (byte* pfile = &file)
 			{
-				int ret = IMGSavePNGNative(surface, (byte*)pfile);
+				int ret = SavePNGNative(surface, (byte*)pfile);
 				return ret;
 			}
 		}
@@ -324,11 +389,11 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SavePNG")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> file)
+		public static int SavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file)
 		{
 			fixed (byte* pfile = file)
 			{
-				int ret = IMGSavePNGNative(surface, (byte*)pfile);
+				int ret = SavePNGNative(surface, (byte*)pfile);
 				return ret;
 			}
 		}
@@ -342,7 +407,7 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SavePNG")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] string file)
+		public static int SavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -361,7 +426,7 @@ namespace Hexa.NET.SDL2.Image
 				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			int ret = IMGSavePNGNative(surface, pStr0);
+			int ret = SavePNGNative(surface, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -378,13 +443,13 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SavePNG")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ref byte file)
+		public static int SavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ref byte file)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
 				fixed (byte* pfile = &file)
 				{
-					int ret = IMGSavePNGNative((SDLSurface*)psurface, (byte*)pfile);
+					int ret = SavePNGNative((SDLSurface*)psurface, (byte*)pfile);
 					return ret;
 				}
 			}
@@ -399,13 +464,13 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SavePNG")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> file)
+		public static int SavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
 				fixed (byte* pfile = file)
 				{
-					int ret = IMGSavePNGNative((SDLSurface*)psurface, (byte*)pfile);
+					int ret = SavePNGNative((SDLSurface*)psurface, (byte*)pfile);
 					return ret;
 				}
 			}
@@ -420,7 +485,7 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SavePNG")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] string file)
+		public static int SavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
@@ -441,7 +506,7 @@ namespace Hexa.NET.SDL2.Image
 					int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
 					pStr0[pStrOffset0] = 0;
 				}
-				int ret = IMGSavePNGNative((SDLSurface*)psurface, pStr0);
+				int ret = SavePNGNative((SDLSurface*)psurface, pStr0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
@@ -459,12 +524,13 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SavePNG_RW")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int IMGSavePNGRWNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SavePNGRWNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRWops*, int, int>)vt[50])(surface, dst, freedst);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRWops*, int, int>)funcTable[50])(surface, dst, freedst);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)vt[50])((nint)surface, (nint)dst, freedst);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[50])((nint)surface, (nint)dst, freedst);
 			#endif
 		}
 
@@ -477,9 +543,9 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SavePNG_RW")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSavePNGRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
+		public static int SavePNGRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
 		{
-			int ret = IMGSavePNGRWNative(surface, dst, freedst);
+			int ret = SavePNGRWNative(surface, dst, freedst);
 			return ret;
 		}
 
@@ -492,11 +558,11 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SavePNG_RW")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSavePNGRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
+		public static int SavePNGRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				int ret = IMGSavePNGRWNative((SDLSurface*)psurface, dst, freedst);
+				int ret = SavePNGRWNative((SDLSurface*)psurface, dst, freedst);
 				return ret;
 			}
 		}
@@ -510,11 +576,11 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SavePNG_RW")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSavePNGRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
+		public static int SavePNGRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops *")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
 		{
 			fixed (SDLRWops* pdst = &dst)
 			{
-				int ret = IMGSavePNGRWNative(surface, (SDLRWops*)pdst, freedst);
+				int ret = SavePNGRWNative(surface, (SDLRWops*)pdst, freedst);
 				return ret;
 			}
 		}
@@ -528,13 +594,13 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SavePNG_RW")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSavePNGRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
+		public static int SavePNGRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops *")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
 				fixed (SDLRWops* pdst = &dst)
 				{
-					int ret = IMGSavePNGRWNative((SDLSurface*)psurface, (SDLRWops*)pdst, freedst);
+					int ret = SavePNGRWNative((SDLSurface*)psurface, (SDLRWops*)pdst, freedst);
 					return ret;
 				}
 			}
@@ -549,12 +615,13 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SaveJPG")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int IMGSaveJPGNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] byte* file, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SaveJPGNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, int, int>)vt[51])(surface, file, quality);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, int, int>)funcTable[51])(surface, file, quality);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)vt[51])((nint)surface, (nint)file, quality);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[51])((nint)surface, (nint)file, quality);
 			#endif
 		}
 
@@ -567,9 +634,9 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SaveJPG")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSaveJPG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] byte* file, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
+		public static int SaveJPG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
 		{
-			int ret = IMGSaveJPGNative(surface, file, quality);
+			int ret = SaveJPGNative(surface, file, quality);
 			return ret;
 		}
 
@@ -582,11 +649,11 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SaveJPG")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSaveJPG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] byte* file, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
+		public static int SaveJPG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				int ret = IMGSaveJPGNative((SDLSurface*)psurface, file, quality);
+				int ret = SaveJPGNative((SDLSurface*)psurface, file, quality);
 				return ret;
 			}
 		}
@@ -600,11 +667,11 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SaveJPG")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSaveJPG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ref byte file, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
+		public static int SaveJPG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ref byte file, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
 		{
 			fixed (byte* pfile = &file)
 			{
-				int ret = IMGSaveJPGNative(surface, (byte*)pfile, quality);
+				int ret = SaveJPGNative(surface, (byte*)pfile, quality);
 				return ret;
 			}
 		}
@@ -618,11 +685,11 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SaveJPG")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSaveJPG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> file, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
+		public static int SaveJPG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
 		{
 			fixed (byte* pfile = file)
 			{
-				int ret = IMGSaveJPGNative(surface, (byte*)pfile, quality);
+				int ret = SaveJPGNative(surface, (byte*)pfile, quality);
 				return ret;
 			}
 		}
@@ -636,7 +703,7 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SaveJPG")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSaveJPG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] string file, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
+		public static int SaveJPG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -655,7 +722,7 @@ namespace Hexa.NET.SDL2.Image
 				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			int ret = IMGSaveJPGNative(surface, pStr0, quality);
+			int ret = SaveJPGNative(surface, pStr0, quality);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -672,13 +739,13 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SaveJPG")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSaveJPG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ref byte file, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
+		public static int SaveJPG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ref byte file, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
 				fixed (byte* pfile = &file)
 				{
-					int ret = IMGSaveJPGNative((SDLSurface*)psurface, (byte*)pfile, quality);
+					int ret = SaveJPGNative((SDLSurface*)psurface, (byte*)pfile, quality);
 					return ret;
 				}
 			}
@@ -693,13 +760,13 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SaveJPG")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSaveJPG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> file, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
+		public static int SaveJPG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
 				fixed (byte* pfile = file)
 				{
-					int ret = IMGSaveJPGNative((SDLSurface*)psurface, (byte*)pfile, quality);
+					int ret = SaveJPGNative((SDLSurface*)psurface, (byte*)pfile, quality);
 					return ret;
 				}
 			}
@@ -714,7 +781,7 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SaveJPG")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSaveJPG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] string file, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
+		public static int SaveJPG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
@@ -735,7 +802,7 @@ namespace Hexa.NET.SDL2.Image
 					int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
 					pStr0[pStrOffset0] = 0;
 				}
-				int ret = IMGSaveJPGNative((SDLSurface*)psurface, pStr0, quality);
+				int ret = SaveJPGNative((SDLSurface*)psurface, pStr0, quality);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
@@ -753,12 +820,13 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SaveJPG_RW")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int IMGSaveJPGRWNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SaveJPGRWNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRWops*, int, int, int>)vt[52])(surface, dst, freedst, quality);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRWops*, int, int, int>)funcTable[52])(surface, dst, freedst, quality);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int, int>)vt[52])((nint)surface, (nint)dst, freedst, quality);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int, int>)funcTable[52])((nint)surface, (nint)dst, freedst, quality);
 			#endif
 		}
 
@@ -771,9 +839,9 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SaveJPG_RW")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSaveJPGRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
+		public static int SaveJPGRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
 		{
-			int ret = IMGSaveJPGRWNative(surface, dst, freedst, quality);
+			int ret = SaveJPGRWNative(surface, dst, freedst, quality);
 			return ret;
 		}
 
@@ -786,11 +854,11 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SaveJPG_RW")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSaveJPGRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
+		public static int SaveJPGRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				int ret = IMGSaveJPGRWNative((SDLSurface*)psurface, dst, freedst, quality);
+				int ret = SaveJPGRWNative((SDLSurface*)psurface, dst, freedst, quality);
 				return ret;
 			}
 		}
@@ -804,11 +872,11 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SaveJPG_RW")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSaveJPGRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
+		public static int SaveJPGRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops *")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
 		{
 			fixed (SDLRWops* pdst = &dst)
 			{
-				int ret = IMGSaveJPGRWNative(surface, (SDLRWops*)pdst, freedst, quality);
+				int ret = SaveJPGRWNative(surface, (SDLRWops*)pdst, freedst, quality);
 				return ret;
 			}
 		}
@@ -822,13 +890,13 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_SaveJPG_RW")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int IMGSaveJPGRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
+		public static int SaveJPGRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops *")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst, [NativeName(NativeNameType.Param, "quality")] [NativeName(NativeNameType.Type, "int")] int quality)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
 				fixed (SDLRWops* pdst = &dst)
 				{
-					int ret = IMGSaveJPGRWNative((SDLSurface*)psurface, (SDLRWops*)pdst, freedst, quality);
+					int ret = SaveJPGRWNative((SDLSurface*)psurface, (SDLRWops*)pdst, freedst, quality);
 					return ret;
 				}
 			}
@@ -843,13 +911,14 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadAnimation")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		internal static IMGAnimation* IMGLoadAnimationNative([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] byte* file)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static IMGAnimation* LoadAnimationNative([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, IMGAnimation*>)vt[53])(file);
+			return ((delegate* unmanaged[Cdecl]<byte*, IMGAnimation*>)funcTable[53])(file);
 			#else
-			return (IMGAnimation*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[53])((nint)file);
+			return (IMGAnimation*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[53])((nint)file);
 			#endif
 		}
 
@@ -862,10 +931,10 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadAnimation")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		public static IMGAnimation* IMGLoadAnimation([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] byte* file)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		public static IMGAnimation* LoadAnimation([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
 		{
-			IMGAnimation* ret = IMGLoadAnimationNative(file);
+			IMGAnimation* ret = LoadAnimationNative(file);
 			return ret;
 		}
 
@@ -878,12 +947,12 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadAnimation")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		public static IMGAnimation* IMGLoadAnimation([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ref byte file)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		public static IMGAnimation* LoadAnimation([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ref byte file)
 		{
 			fixed (byte* pfile = &file)
 			{
-				IMGAnimation* ret = IMGLoadAnimationNative((byte*)pfile);
+				IMGAnimation* ret = LoadAnimationNative((byte*)pfile);
 				return ret;
 			}
 		}
@@ -897,12 +966,12 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadAnimation")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		public static IMGAnimation* IMGLoadAnimation([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> file)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		public static IMGAnimation* LoadAnimation([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file)
 		{
 			fixed (byte* pfile = file)
 			{
-				IMGAnimation* ret = IMGLoadAnimationNative((byte*)pfile);
+				IMGAnimation* ret = LoadAnimationNative((byte*)pfile);
 				return ret;
 			}
 		}
@@ -916,8 +985,8 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadAnimation")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		public static IMGAnimation* IMGLoadAnimation([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] string file)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		public static IMGAnimation* LoadAnimation([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -936,7 +1005,7 @@ namespace Hexa.NET.SDL2.Image
 				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			IMGAnimation* ret = IMGLoadAnimationNative(pStr0);
+			IMGAnimation* ret = LoadAnimationNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -956,13 +1025,14 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadAnimation_RW")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		internal static IMGAnimation* IMGLoadAnimationRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static IMGAnimation* LoadAnimationRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int, IMGAnimation*>)vt[54])(src, freesrc);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int, IMGAnimation*>)funcTable[54])(src, freesrc);
 			#else
-			return (IMGAnimation*)((delegate* unmanaged[Cdecl]<nint, int, nint>)vt[54])((nint)src, freesrc);
+			return (IMGAnimation*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[54])((nint)src, freesrc);
 			#endif
 		}
 
@@ -978,10 +1048,10 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadAnimation_RW")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		public static IMGAnimation* IMGLoadAnimationRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		public static IMGAnimation* LoadAnimationRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
 		{
-			IMGAnimation* ret = IMGLoadAnimationRWNative(src, freesrc);
+			IMGAnimation* ret = LoadAnimationRWNative(src, freesrc);
 			return ret;
 		}
 
@@ -997,12 +1067,12 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadAnimation_RW")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		public static IMGAnimation* IMGLoadAnimationRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		public static IMGAnimation* LoadAnimationRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
-				IMGAnimation* ret = IMGLoadAnimationRWNative((SDLRWops*)psrc, freesrc);
+				IMGAnimation* ret = LoadAnimationRWNative((SDLRWops*)psrc, freesrc);
 				return ret;
 			}
 		}
@@ -1024,13 +1094,14 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadAnimationTyped_RW")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		internal static IMGAnimation* IMGLoadAnimationTypedRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "const char*")] byte* type)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static IMGAnimation* LoadAnimationTypedRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "char const *")] byte* type)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int, byte*, IMGAnimation*>)vt[55])(src, freesrc, type);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int, byte*, IMGAnimation*>)funcTable[55])(src, freesrc, type);
 			#else
-			return (IMGAnimation*)((delegate* unmanaged[Cdecl]<nint, int, nint, nint>)vt[55])((nint)src, freesrc, (nint)type);
+			return (IMGAnimation*)((delegate* unmanaged[Cdecl]<nint, int, nint, nint>)funcTable[55])((nint)src, freesrc, (nint)type);
 			#endif
 		}
 
@@ -1051,10 +1122,10 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadAnimationTyped_RW")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		public static IMGAnimation* IMGLoadAnimationTypedRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "const char*")] byte* type)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		public static IMGAnimation* LoadAnimationTypedRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "char const *")] byte* type)
 		{
-			IMGAnimation* ret = IMGLoadAnimationTypedRWNative(src, freesrc, type);
+			IMGAnimation* ret = LoadAnimationTypedRWNative(src, freesrc, type);
 			return ret;
 		}
 
@@ -1075,12 +1146,12 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadAnimationTyped_RW")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		public static IMGAnimation* IMGLoadAnimationTypedRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "const char*")] byte* type)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		public static IMGAnimation* LoadAnimationTypedRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "char const *")] byte* type)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
-				IMGAnimation* ret = IMGLoadAnimationTypedRWNative((SDLRWops*)psrc, freesrc, type);
+				IMGAnimation* ret = LoadAnimationTypedRWNative((SDLRWops*)psrc, freesrc, type);
 				return ret;
 			}
 		}
@@ -1102,12 +1173,12 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadAnimationTyped_RW")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		public static IMGAnimation* IMGLoadAnimationTypedRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "const char*")] ref byte type)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		public static IMGAnimation* LoadAnimationTypedRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "char const *")] ref byte type)
 		{
 			fixed (byte* ptype = &type)
 			{
-				IMGAnimation* ret = IMGLoadAnimationTypedRWNative(src, freesrc, (byte*)ptype);
+				IMGAnimation* ret = LoadAnimationTypedRWNative(src, freesrc, (byte*)ptype);
 				return ret;
 			}
 		}
@@ -1129,12 +1200,12 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadAnimationTyped_RW")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		public static IMGAnimation* IMGLoadAnimationTypedRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> type)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		public static IMGAnimation* LoadAnimationTypedRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> type)
 		{
 			fixed (byte* ptype = type)
 			{
-				IMGAnimation* ret = IMGLoadAnimationTypedRWNative(src, freesrc, (byte*)ptype);
+				IMGAnimation* ret = LoadAnimationTypedRWNative(src, freesrc, (byte*)ptype);
 				return ret;
 			}
 		}
@@ -1156,8 +1227,8 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadAnimationTyped_RW")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		public static IMGAnimation* IMGLoadAnimationTypedRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "const char*")] string type)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		public static IMGAnimation* LoadAnimationTypedRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "char const *")] string type)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1176,7 +1247,7 @@ namespace Hexa.NET.SDL2.Image
 				int pStrOffset0 = Utils.EncodeStringUTF8(type, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			IMGAnimation* ret = IMGLoadAnimationTypedRWNative(src, freesrc, pStr0);
+			IMGAnimation* ret = LoadAnimationTypedRWNative(src, freesrc, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1201,14 +1272,14 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadAnimationTyped_RW")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		public static IMGAnimation* IMGLoadAnimationTypedRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "const char*")] ref byte type)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		public static IMGAnimation* LoadAnimationTypedRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "char const *")] ref byte type)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
 				fixed (byte* ptype = &type)
 				{
-					IMGAnimation* ret = IMGLoadAnimationTypedRWNative((SDLRWops*)psrc, freesrc, (byte*)ptype);
+					IMGAnimation* ret = LoadAnimationTypedRWNative((SDLRWops*)psrc, freesrc, (byte*)ptype);
 					return ret;
 				}
 			}
@@ -1231,14 +1302,14 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadAnimationTyped_RW")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		public static IMGAnimation* IMGLoadAnimationTypedRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> type)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		public static IMGAnimation* LoadAnimationTypedRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> type)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
 				fixed (byte* ptype = type)
 				{
-					IMGAnimation* ret = IMGLoadAnimationTypedRWNative((SDLRWops*)psrc, freesrc, (byte*)ptype);
+					IMGAnimation* ret = LoadAnimationTypedRWNative((SDLRWops*)psrc, freesrc, (byte*)ptype);
 					return ret;
 				}
 			}
@@ -1261,8 +1332,8 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadAnimationTyped_RW")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		public static IMGAnimation* IMGLoadAnimationTypedRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "const char*")] string type)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		public static IMGAnimation* LoadAnimationTypedRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "char const *")] string type)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
@@ -1283,7 +1354,7 @@ namespace Hexa.NET.SDL2.Image
 					int pStrOffset0 = Utils.EncodeStringUTF8(type, pStr0, pStrSize0);
 					pStr0[pStrOffset0] = 0;
 				}
-				IMGAnimation* ret = IMGLoadAnimationTypedRWNative((SDLRWops*)psrc, freesrc, pStr0);
+				IMGAnimation* ret = LoadAnimationTypedRWNative((SDLRWops*)psrc, freesrc, pStr0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
@@ -1301,12 +1372,13 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_FreeAnimation")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void IMGFreeAnimationNative([NativeName(NativeNameType.Param, "anim")] [NativeName(NativeNameType.Type, "IMG_Animation*")] IMGAnimation* anim)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void FreeAnimationNative([NativeName(NativeNameType.Param, "anim")] [NativeName(NativeNameType.Type, "IMG_Animation *")] IMGAnimation* anim)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<IMGAnimation*, void>)vt[56])(anim);
+			((delegate* unmanaged[Cdecl]<IMGAnimation*, void>)funcTable[56])(anim);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[56])((nint)anim);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[56])((nint)anim);
 			#endif
 		}
 
@@ -1319,9 +1391,9 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_FreeAnimation")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void IMGFreeAnimation([NativeName(NativeNameType.Param, "anim")] [NativeName(NativeNameType.Type, "IMG_Animation*")] IMGAnimation* anim)
+		public static void FreeAnimation([NativeName(NativeNameType.Param, "anim")] [NativeName(NativeNameType.Type, "IMG_Animation *")] IMGAnimation* anim)
 		{
-			IMGFreeAnimationNative(anim);
+			FreeAnimationNative(anim);
 		}
 
 		/// <summary>
@@ -1333,11 +1405,11 @@ namespace Hexa.NET.SDL2.Image
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_FreeAnimation")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void IMGFreeAnimation([NativeName(NativeNameType.Param, "anim")] [NativeName(NativeNameType.Type, "IMG_Animation*")] ref IMGAnimation anim)
+		public static void FreeAnimation([NativeName(NativeNameType.Param, "anim")] [NativeName(NativeNameType.Type, "IMG_Animation *")] ref IMGAnimation anim)
 		{
 			fixed (IMGAnimation* panim = &anim)
 			{
-				IMGFreeAnimationNative((IMGAnimation*)panim);
+				FreeAnimationNative((IMGAnimation*)panim);
 			}
 		}
 
@@ -1352,13 +1424,14 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadGIFAnimation_RW")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		internal static IMGAnimation* IMGLoadGIFAnimationRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static IMGAnimation* LoadGIFAnimationRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* src)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, IMGAnimation*>)vt[57])(src);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, IMGAnimation*>)funcTable[57])(src);
 			#else
-			return (IMGAnimation*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[57])((nint)src);
+			return (IMGAnimation*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[57])((nint)src);
 			#endif
 		}
 
@@ -1373,10 +1446,10 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadGIFAnimation_RW")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		public static IMGAnimation* IMGLoadGIFAnimationRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		public static IMGAnimation* LoadGIFAnimationRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* src)
 		{
-			IMGAnimation* ret = IMGLoadGIFAnimationRWNative(src);
+			IMGAnimation* ret = LoadGIFAnimationRWNative(src);
 			return ret;
 		}
 
@@ -1391,12 +1464,12 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadGIFAnimation_RW")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		public static IMGAnimation* IMGLoadGIFAnimationRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		public static IMGAnimation* LoadGIFAnimationRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] ref SDLRWops src)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
-				IMGAnimation* ret = IMGLoadGIFAnimationRWNative((SDLRWops*)psrc);
+				IMGAnimation* ret = LoadGIFAnimationRWNative((SDLRWops*)psrc);
 				return ret;
 			}
 		}
@@ -1412,13 +1485,14 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadWEBPAnimation_RW")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		internal static IMGAnimation* IMGLoadWEBPAnimationRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static IMGAnimation* LoadWEBPAnimationRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* src)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, IMGAnimation*>)vt[58])(src);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, IMGAnimation*>)funcTable[58])(src);
 			#else
-			return (IMGAnimation*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[58])((nint)src);
+			return (IMGAnimation*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[58])((nint)src);
 			#endif
 		}
 
@@ -1433,10 +1507,10 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadWEBPAnimation_RW")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		public static IMGAnimation* IMGLoadWEBPAnimationRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		public static IMGAnimation* LoadWEBPAnimationRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] SDLRWops* src)
 		{
-			IMGAnimation* ret = IMGLoadWEBPAnimationRWNative(src);
+			IMGAnimation* ret = LoadWEBPAnimationRWNative(src);
 			return ret;
 		}
 
@@ -1451,12 +1525,12 @@ namespace Hexa.NET.SDL2.Image
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "IMG_LoadWEBPAnimation_RW")]
-		[return: NativeName(NativeNameType.Type, "IMG_Animation*")]
-		public static IMGAnimation* IMGLoadWEBPAnimationRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
+		[return: NativeName(NativeNameType.Type, "IMG_Animation *")]
+		public static IMGAnimation* LoadWEBPAnimationRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops *")] ref SDLRWops src)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
-				IMGAnimation* ret = IMGLoadWEBPAnimationRWNative((SDLRWops*)psrc);
+				IMGAnimation* ret = LoadWEBPAnimationRWNative((SDLRWops*)psrc);
 				return ret;
 			}
 		}

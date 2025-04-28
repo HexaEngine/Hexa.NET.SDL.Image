@@ -17,6 +17,7 @@ namespace Hexa.NET.SDL2.Image
 	/// Initialization flags<br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "IMG_InitFlags")]
+	[Flags]
 	public enum IMGInitFlags : int
 	{
 		[NativeName(NativeNameType.EnumItem, "IMG_INIT_JPG")]
