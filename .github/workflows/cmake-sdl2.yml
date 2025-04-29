@@ -54,38 +54,7 @@ jobs:
       if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
       run: |
           sudo apt-get update && sudo apt-get install -y \
-          build-essential \
-          cmake \
-          libasound2-dev \
-          libpulse-dev \
-          libaudio-dev \
-          libx11-dev \
-          libxext-dev \
-          libxrandr-dev \
-          libxcursor-dev \
-          libxfixes-dev \
-          libxi-dev \
-          libxinerama-dev \
-          libxss-dev \
-          libwayland-dev \
-          libwayland-egl-backend-dev \
-          libdbus-1-dev \
-          libudev-dev \
-          libgles2-mesa-dev \
-          libegl1-mesa-dev \
-          libgl1-mesa-dev \
-          libibus-1.0-dev \
-          fcitx-libs-dev \
-          libsamplerate0-dev \
-          ccache \
-          libjack-jackd2-dev \
-          libdrm-dev \
-          libpipewire-0.3-dev \
-          libvulkan-dev \
-          libdecor-0-dev \
-          qtwayland5 \
-          libxkbcommon-dev \
-          libsndio-dev \
+          libsdl2-dev \
           libpng-dev \
           libjpeg-dev \
           libtiff-dev \
@@ -97,7 +66,7 @@ jobs:
         sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
 
     - name: Install vcpkg on Linux and macOS
-      if: runner.os != 'Windows'
+      if: runner.os != 'Windows' && matrix.os != 'ubuntu-latest'
       run: |
         cd SDLImage 
         git clone https://github.com/microsoft/vcpkg.git
@@ -124,7 +93,7 @@ jobs:
         cd SDLImage
         cmake -S ./ -B ./build -DBUILD_SHARED_LIBS=ON -DSDL2IMAGE_SAMPLES=OFF -DSDL2IMAGE_TESTS=OFF -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg-triplet }}
 
-    - name: Configure SDLImage with CMake
+    - name: Configure SDLImage with CMake for Windows
       if: matrix.os == 'windows-latest'
       run: |
         cd SDLImage
