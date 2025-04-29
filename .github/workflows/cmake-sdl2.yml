@@ -100,6 +100,10 @@ jobs:
       run: |
         brew install libpng jpeg libtiff webp libavif
 
+    - name: Install Dependencies on Windows
+      if: runner.os == 'Windows'
+      run: choco install nasm
+
     - name: Configure SDL with CMake on Linux (x86_64)
       if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
       run: |
@@ -124,10 +128,6 @@ jobs:
        cmake --build ./build --config Release
        cmake --install ./build --config Release --prefix install
 
-    - name: Install NASM
-      if: runner.os == 'Windows'
-      run: choco install nasm
-
     - name: Configure SDLImage with CMake for Linux
       if: matrix.os == 'ubuntu-latest' || matrix.os == 'linux'
       run: |
@@ -138,13 +138,13 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: |
         cd SDLImage
-        cmake -S ./ -B ./build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DSDL2IMAGE_SAMPLES=OFF -DSDL2IMAGE_TESTS=OFF -A ${{ matrix.cmake-arch }} -DCMAKE_PREFIX_PATH="./SDL/install"
+        cmake -S ./ -B ./build -A ${{ matrix.cmake-arch }} -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DSDL2IMAGE_SAMPLES=OFF -DSDL2IMAGE_TESTS=OFF -DCMAKE_PREFIX_PATH="./SDL/install"
         
     - name: Configure SDLImage with CMake for macOS
       if: matrix.os == 'macos-latest'
       run: | 
         cd SDLImage
-        cmake -S ./ -B ./build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DSDL2IMAGE_SAMPLES=OFF -DSDL2IMAGE_TESTS=OFF -DCMAKE_OSX_ARCHITECTURES=${{ matrix.cmake-arch }} -DCMAKE_PREFIX_PATH="./SDL/install"
+        cmake -S ./ -B ./build -DCMAKE_OSX_ARCHITECTURES=${{ matrix.cmake-arch }} -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DSDL2IMAGE_SAMPLES=OFF -DSDL2IMAGE_TESTS=OFF -DCMAKE_PREFIX_PATH="./SDL/install"
 
     - name: Build SDLImage
       run: |

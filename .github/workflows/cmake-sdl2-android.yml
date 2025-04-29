@@ -23,7 +23,7 @@ jobs:
       with:
         repository: 'libsdl-org/SDL'
         ref: 'release-2.32.4'
-        path: 'SDLImage/SDL2'
+        path: 'SDLImage/SDL'
 
     - name: Install dependencies on Ubuntu
       if: matrix.os == 'ubuntu-latest'
@@ -62,7 +62,7 @@ jobs:
 
     - name: Build for arm64-v8a
       run: |
-          cd SDLImage/SDL2
+          cd SDLImage/SDL
           cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release \
                 -DCMAKE_SYSTEM_NAME=Android \
                 -DCMAKE_ANDROID_NDK=$ANDROID_NDK_HOME \
@@ -71,17 +71,15 @@ jobs:
                 -DCMAKE_ANDROID_STL_TYPE=c++_shared \
                 -DCMAKE_ANDROID_API=21 \
                 -DANDROID_NDK=$ANDROID_NDK_HOME \
-                -DSDL_STATIC=OFF \
+                -DSDL_STATIC=ON \
                 -DSDL_SHARED=ON \
-                -DSDL_TEST=OFF \
                 -S ./ \
                 -B ./build/arm64-v8a
-          cmake --build ./build/arm64-v8a --config Release
-          cmake --install ./build/arm64-v8a --config Release --prefix install/arm64-v8a
+          cmake --build ./build/arm64-v8a  --config Release
 
     - name: Build for x86_64
       run: |
-          cd SDLImage/SDL2
+          cd SDLImage/SDL
           cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release \
                 -DCMAKE_SYSTEM_NAME=Android \
                 -DCMAKE_ANDROID_NDK=$ANDROID_NDK_HOME \
@@ -90,13 +88,11 @@ jobs:
                 -DCMAKE_ANDROID_STL_TYPE=c++_shared \
                 -DCMAKE_ANDROID_API=21 \
                 -DANDROID_NDK=$ANDROID_NDK_HOME \
-                -DSDL_STATIC=OFF \
+                -DSDL_STATIC=ON \
                 -DSDL_SHARED=ON \
-                -DSDL_TEST=OFF \
                 -S ./ \
                 -B ./build/x86_64
           cmake --build ./build/x86_64 --config Release
-          cmake --install ./build/x86_64 --config Release --prefix install/x86_64
 
     - name: Build SDL_image for arm64-v8a
       run: |
@@ -108,7 +104,8 @@ jobs:
                 -DCMAKE_ANDROID_NDK_TOOLCHAIN_VERSION=clang \
                 -DCMAKE_ANDROID_STL_TYPE=c++_shared \
                 -DCMAKE_ANDROID_API=21 \
-                -DCMAKE_PREFIX_PATH="./SDL/install/arm64-v8a" \
+                -DSDL2_INCLUDE_DIR=./SDL/include \
+                -DSDL2_LIBRARY=./SDL/build/arm64-v8a/libSDL2.so \
                 -S ./ \
                 -B ./build/arm64-v8a
           cmake --build ./build/arm64-v8a --config Release
@@ -123,7 +120,8 @@ jobs:
                 -DCMAKE_ANDROID_NDK_TOOLCHAIN_VERSION=clang \
                 -DCMAKE_ANDROID_STL_TYPE=c++_shared \
                 -DCMAKE_ANDROID_API=21 \
-                -DCMAKE_PREFIX_PATH="./SDL/install/x86_64" \
+                -DSDL2_INCLUDE_DIR=./SDL/include \
+                -DSDL2_LIBRARY=./SDL/build/x86_64/libSDL2.so \
                 -S ./ \
                 -B ./build/x86_64
           cmake --build ./build/x86_64 --config Release
