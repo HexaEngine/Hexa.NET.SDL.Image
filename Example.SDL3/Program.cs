@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using Example;
 using Hexa.NET.SDL3;
 using Hexa.NET.SDL3.Image;
 
@@ -27,8 +28,11 @@ unsafe
         return;
     }
 
+    using var fs = File.OpenRead("icon.png");
+    using SDLStream stream = new(fs);
+
     // Load an image as an SDL surface
-    SDLSurface* surface = SDLImage.Load("icon.png");
+    SDLSurface* surface = SDLImage.LoadIO(stream, false);
     if (surface == null)
     {
         Console.WriteLine("Unable to load image! SDL_image Error: ");
