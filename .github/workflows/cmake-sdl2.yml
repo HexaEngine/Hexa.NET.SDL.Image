@@ -92,8 +92,7 @@ jobs:
           libdecor-0-dev \
           qtwayland5 \
           libxkbcommon-dev \
-          libsndio-dev
-          libsdl2-dev \
+          libsndio-dev \
           libpng-dev \
           libjpeg-dev \
           libtiff-dev \
