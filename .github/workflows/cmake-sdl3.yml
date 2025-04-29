@@ -102,7 +102,7 @@ jobs:
 
     - name: Install Dependencies on Windows
       if: runner.os == 'Windows'
-      run: choco install nasm
+      run: choco install nasm yasm strawberryperl
 
     - name: Configure SDL with CMake on Linux (x86_64)
       if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
