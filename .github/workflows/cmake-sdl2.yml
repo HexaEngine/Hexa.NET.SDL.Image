@@ -51,11 +51,7 @@ jobs:
         repository: 'libsdl-org/SDL'
         ref: 'release-2.32.4'
         path: 'SDLImage/SDL'
-
-    - name: Install Dependencies on macOS
-      if: matrix.os == 'macos-latest'
-      run: |
-        brew install sdl2 libpng jpeg libtiff webp
+        submodules: true
 
     - name: Install dependencies on Ubuntu
       if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
@@ -130,6 +126,13 @@ jobs:
     - name: Install NASM
       if: runner.os == 'Windows'
       run: choco install nasm
+
+    - name: Check if SDL2 is installed
+      run: |
+        if [ ! -d SDLImage/SDL/install ]; then
+          echo "SDL2 install directory does not exist!"
+          exit 1
+        fi
 
     - name: Configure SDLImage with CMake for Linux
       if: matrix.os == 'ubuntu-latest' || matrix.os == 'linux'
