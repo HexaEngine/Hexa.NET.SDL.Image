@@ -170,7 +170,7 @@ jobs:
       with:
         name: sdl2-image-${{ matrix.os }}-${{ matrix.arch }}-artifacts 
         path: |
-          SDLImage/build/Release/*.dll
+          SDLImage/build/*.dll
           SDLImage/build/*.so
           SDLImage/build/*.dylib
         if-no-files-found: ignore # 'warn' or 'ignore' or 'error'
