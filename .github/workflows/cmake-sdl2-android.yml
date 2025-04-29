@@ -71,11 +71,13 @@ jobs:
                 -DCMAKE_ANDROID_STL_TYPE=c++_shared \
                 -DCMAKE_ANDROID_API=21 \
                 -DANDROID_NDK=$ANDROID_NDK_HOME \
-                -DSDL_STATIC=ON \
+                -DSDL_STATIC=OFF \
                 -DSDL_SHARED=ON \
+                -DSDL_TEST=OFF \
                 -S ./ \
                 -B ./build/arm64-v8a
-          cmake --build ./build/arm64-v8a  --config Release
+          cmake --build ./build/arm64-v8a --config Release
+          cmake --install ./build/arm64-v8a --config Release --prefix install/arm64-v8a
 
     - name: Build for x86_64
       run: |
@@ -88,11 +90,13 @@ jobs:
                 -DCMAKE_ANDROID_STL_TYPE=c++_shared \
                 -DCMAKE_ANDROID_API=21 \
                 -DANDROID_NDK=$ANDROID_NDK_HOME \
-                -DSDL_STATIC=ON \
+                -DSDL_STATIC=OFF \
                 -DSDL_SHARED=ON \
+                -DSDL_TEST=OFF \
                 -S ./ \
                 -B ./build/x86_64
           cmake --build ./build/x86_64 --config Release
+          cmake --install ./build/x86_64 --config Release --prefix install/x86_64
 
     - name: Build SDL_image for arm64-v8a
       run: |
@@ -104,8 +108,7 @@ jobs:
                 -DCMAKE_ANDROID_NDK_TOOLCHAIN_VERSION=clang \
                 -DCMAKE_ANDROID_STL_TYPE=c++_shared \
                 -DCMAKE_ANDROID_API=21 \
-                -DSDL2_INCLUDE_DIR=./SDL2/include \
-                -DSDL2_LIBRARY=./SDL2/build/arm64-v8a/libSDL2.so \
+                -DCMAKE_PREFIX_PATH="./SDL/install/arm64-v8a" \
                 -S ./ \
                 -B ./build/arm64-v8a
           cmake --build ./build/arm64-v8a --config Release
@@ -120,8 +123,7 @@ jobs:
                 -DCMAKE_ANDROID_NDK_TOOLCHAIN_VERSION=clang \
                 -DCMAKE_ANDROID_STL_TYPE=c++_shared \
                 -DCMAKE_ANDROID_API=21 \
-                -DSDL2_INCLUDE_DIR=./SDL2/include \
-                -DSDL2_LIBRARY=./SDL2/build/x86_64/libSDL2.so \
+                -DCMAKE_PREFIX_PATH="./SDL/install/x86_64" \
                 -S ./ \
                 -B ./build/x86_64
           cmake --build ./build/x86_64 --config Release

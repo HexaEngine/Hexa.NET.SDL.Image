@@ -104,36 +104,25 @@ jobs:
       if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
       run: |
        cd SDLImage/SDL
-       cmake -S . -B ./build
+       cmake -S . -B ./build -DCMAKE_BUILD_TYPE=Release -DSDL_STATIC=OFF -DSDL_SHARED=ON -DSDL_TEST=OFF
 
     - name: Configure SDL with CMake for macOS ARM64
       if: matrix.os == 'macos-latest'
       run: |
        cd SDLImage/SDL
-       cmake -S . -B ./build -DCMAKE_OSX_ARCHITECTURES=${{ matrix.cmake-arch }}
+       cmake -S . -B ./build -DCMAKE_OSX_ARCHITECTURES=${{ matrix.cmake-arch }} -DCMAKE_BUILD_TYPE=Release -DSDL_STATIC=OFF -DSDL_SHARED=ON -DSDL_TEST=OFF
 
     - name: Configure SDL with CMake for Windows
       if: matrix.os == 'windows-latest'
       run: |
        cd SDLImage/SDL
-       cmake -S . -B ./build -A ${{ matrix.cmake-arch }}
+       cmake -S . -B ./build -A ${{ matrix.cmake-arch }} -DCMAKE_BUILD_TYPE=Release -DSDL_STATIC=OFF -DSDL_SHARED=ON -DSDL_TEST=OFF
 
     - name: Build SDL2
       run: |
        cd SDLImage/SDL
        cmake --build ./build --config Release
-       cmake --install ./build --config Release --prefix ./install
-
-    - name: SDL2Find workaround on unix based OS.
-      if: runner.os != 'Windows'
-      run: |
-        # hide SDL2Config.cmake so find_package(SDL2) uses FindSDL2.cmake module
-        SDL2_CFG_DIR="SDLImage/SDL/install/lib/cmake/SDL2"
-        if [ -d "$SDL2_CFG_DIR" ]; then
-          for f in "$SDL2_CFG_DIR"/SDL2Config*.cmake; do
-            mv "$f" "${f}.disabled"
-          done
-        fi
+       cmake --install ./build --config Release --prefix install
 
     - name: Install NASM
       if: runner.os == 'Windows'
@@ -143,22 +132,24 @@ jobs:
       if: matrix.os == 'ubuntu-latest' || matrix.os == 'linux'
       run: |
         cd SDLImage
-        cmake -S ./ -B ./build -DBUILD_SHARED_LIBS=ON -DSDL2IMAGE_SAMPLES=OFF -DSDL2IMAGE_TESTS=OFF -DCMAKE_PREFIX_PATH="./SDL/install"
+        cmake -S ./ -B ./build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DSDL2IMAGE_SAMPLES=OFF -DSDL2IMAGE_TESTS=OFF -DCMAKE_PREFIX_PATH="./SDL/install"
 
     - name: Configure SDLImage with CMake for Windows
       if: matrix.os == 'windows-latest'
       run: |
         cd SDLImage
-        cmake -S ./ -B ./build -DBUILD_SHARED_LIBS=ON -DSDL2IMAGE_SAMPLES=OFF -DSDL2IMAGE_TESTS=OFF -A ${{ matrix.cmake-arch }} -DCMAKE_PREFIX_PATH="./SDL/install"
+        cmake -S ./ -B ./build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DSDL2IMAGE_SAMPLES=OFF -DSDL2IMAGE_TESTS=OFF -A ${{ matrix.cmake-arch }} -DCMAKE_PREFIX_PATH="./SDL/install"
         
     - name: Configure SDLImage with CMake for macOS
       if: matrix.os == 'macos-latest'
       run: | 
         cd SDLImage
-        cmake -S ./ -B ./build -DBUILD_SHARED_LIBS=ON -DSDL2IMAGE_SAMPLES=OFF -DSDL2IMAGE_TESTS=OFF -DCMAKE_OSX_ARCHITECTURES=${{ matrix.cmake-arch }} -DCMAKE_PREFIX_PATH="./SDL/install"
+        cmake -S ./ -B ./build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DSDL2IMAGE_SAMPLES=OFF -DSDL2IMAGE_TESTS=OFF -DCMAKE_OSX_ARCHITECTURES=${{ matrix.cmake-arch }} -DCMAKE_PREFIX_PATH="./SDL/install"
 
     - name: Build SDLImage
-      run: cmake --build SDLImage/build --config Release
+      run: |
+        cd SDLImage
+        cmake --build SDLImage/build --config Release
 
     - name: Move Windows binaries
       if: matrix.os == 'windows-latest'
