@@ -62,7 +62,7 @@ jobs:
           libwebp-dev
 
     - name: Install vcpkg on Linux and macOS
-      if: runner.os != 'Windows' && matrix.os != 'ubuntu-latest'
+      if: runner.os != 'Windows' && matrix.os != 'ubuntu-latest' && matrix.os != 'linux'
       run: |
         cd SDLImage 
         git clone https://github.com/microsoft/vcpkg.git
