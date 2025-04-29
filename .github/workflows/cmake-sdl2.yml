@@ -61,6 +61,11 @@ jobs:
           libtiff-dev \
           libwebp-dev
 
+
+    - name: Install NASM
+      if: runner.os == 'Windows'
+      run: choco install nasm
+
     - name: Install vcpkg on Linux and macOS
       if: runner.os != 'Windows' && matrix.os != 'ubuntu-latest' && matrix.os != 'linux'
       run: |
