@@ -1,0 +1,168 @@
+name: Build SDL3 Image Libraries
+
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            arch: x86_64
+            cmake-arch: x64
+            vcpkg-triplet: x64-linux
+          - os: linux
+            arch: arm64
+            cmake-arch: aarch64
+            vcpkg-triplet: arm64-linux
+            runner-label: self-hosted
+          - os: windows-latest
+            arch: x86_64
+            cmake-arch: x64
+            vcpkg-triplet: x64-windows
+          - os: windows-latest
+            arch: x86
+            cmake-arch: win32
+            vcpkg-triplet: x86-windows
+          - os: windows-latest
+            arch: arm64
+            cmake-arch: arm64
+            vcpkg-triplet: arm64-windows
+          - os: macos-latest
+            arch: x86_64
+            cmake-arch: x86_64
+            vcpkg-triplet: x64-osx
+          - os: macos-latest
+            arch: arm64
+            cmake-arch: arm64
+            vcpkg-triplet: arm64-osx
+      
+    steps:
+    - uses: actions/checkout@v4.1.7
+      with:
+        repository: 'libsdl-org/SDL_image'
+        path: 'SDLImage'
+        ref: 'release-3.2.4'
+        submodules: true
+
+    - uses: actions/checkout@v4.1.7
+      with:
+        repository: 'libsdl-org/SDL'
+        ref: 'release-3.2.10'
+        path: 'SDLImage/SDL'
+        submodules: true
+
+    - name: Install dependencies on Ubuntu
+      if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
+      run: |
+          sudo apt-get update && sudo apt-get install -y \
+          build-essential \
+          cmake \
+          libasound2-dev \
+          libpulse-dev \
+          libaudio-dev \
+          libx11-dev \
+          libxext-dev \
+          libxrandr-dev \
+          libxcursor-dev \
+          libxfixes-dev \
+          libxi-dev \
+          libxinerama-dev \
+          libxss-dev \
+          libwayland-dev \
+          libwayland-egl-backend-dev \
+          libdbus-1-dev \
+          libudev-dev \
+          libgles2-mesa-dev \
+          libegl1-mesa-dev \
+          libgl1-mesa-dev \
+          libibus-1.0-dev \
+          fcitx-libs-dev \
+          libsamplerate0-dev \
+          ccache \
+          libjack-jackd2-dev \
+          libdrm-dev \
+          libpipewire-0.3-dev \
+          libvulkan-dev \
+          libdecor-0-dev \
+          qtwayland5 \
+          libxkbcommon-dev \
+          libsndio-dev \
+          libpng-dev \
+          libjpeg-dev \
+          libtiff-dev \
+          libwebp-dev \
+          libavif-dev
+
+    - name: Install Dependencies on macOS
+      if: matrix.os == 'macos-latest'
+      run: |
+        brew install libpng jpeg libtiff webp libavif
+
+    - name: Install Dependencies on Windows
+      if: runner.os == 'Windows'
+      run: choco install nasm
+
+    - name: Configure SDL with CMake on Linux (x86_64)
+      if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
+      run: |
+       cd SDLImage/SDL
+       cmake -S . -B ./build -DCMAKE_BUILD_TYPE=Release -DSDL_STATIC=OFF -DSDL_SHARED=ON -DSDL_TEST=OFF
+
+    - name: Configure SDL with CMake for macOS ARM64
+      if: matrix.os == 'macos-latest'
+      run: |
+       cd SDLImage/SDL
+       cmake -S . -B ./build -DCMAKE_OSX_ARCHITECTURES=${{ matrix.cmake-arch }} -DCMAKE_BUILD_TYPE=Release -DSDL_STATIC=OFF -DSDL_SHARED=ON -DSDL_TEST=OFF
+
+    - name: Configure SDL with CMake for Windows
+      if: matrix.os == 'windows-latest'
+      run: |
+       cd SDLImage/SDL
+       cmake -S . -B ./build -A ${{ matrix.cmake-arch }} -DCMAKE_BUILD_TYPE=Release -DSDL_STATIC=OFF -DSDL_SHARED=ON -DSDL_TEST=OFF
+
+    - name: Build SDL3
+      run: |
+       cd SDLImage/SDL
+       cmake --build ./build --config Release
+       cmake --install ./build --config Release --prefix install
+
+    - name: Configure SDLImage with CMake for Linux
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'linux'
+      run: |
+        cd SDLImage
+        cmake -S ./ -B ./build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DSDLIMAGE_SAMPLES=OFF -DSDLIMAGE_TESTS=OFF -DCMAKE_PREFIX_PATH="./SDL/install"
+
+    - name: Configure SDLImage with CMake for Windows
+      if: matrix.os == 'windows-latest'
+      run: |
+        cd SDLImage
+        cmake -S ./ -B ./build -A ${{ matrix.cmake-arch }} -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DSDLIMAGE_SAMPLES=OFF -DSDLIMAGE_TESTS=OFF -DCMAKE_PREFIX_PATH="./SDL/install"
+        
+    - name: Configure SDLImage with CMake for macOS
+      if: matrix.os == 'macos-latest'
+      run: | 
+        cd SDLImage
+        cmake -S ./ -B ./build -DCMAKE_OSX_ARCHITECTURES=${{ matrix.cmake-arch }} -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DSDLIMAGE_SAMPLES=OFF -DSDLIMAGE_TESTS=OFF -DCMAKE_PREFIX_PATH="./SDL/install"
+
+    - name: Build SDLImage
+      run: |
+        cd SDLImage
+        cmake --build ./build --config Release
+
+    - name: Move Windows binaries
+      if: matrix.os == 'windows-latest'
+      run: |
+        cd SDLImage
+        mv ./build/Release/*.dll ./build/
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4.3.4
+      with:
+        name: sdl3-image-${{ matrix.os }}-${{ matrix.arch }}-artifacts 
+        path: |
+          SDLImage/build/*.dll
+          SDLImage/build/*.so
+          SDLImage/build/*.dylib
+        if-no-files-found: ignore # 'warn' or 'ignore' or 'error'
