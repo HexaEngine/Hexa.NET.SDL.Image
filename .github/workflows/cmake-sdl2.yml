@@ -12,10 +12,11 @@ jobs:
             arch: x86_64
             cmake-arch: x64
             vcpkg-triplet: x64-linux
-          - os: ubuntu-latest
+          - os: linux
             arch: arm64
             cmake-arch: aarch64
             vcpkg-triplet: arm64-linux
+            runner-label: self-hosted
           - os: windows-latest
             arch: x86_64
             cmake-arch: x64
@@ -60,11 +61,6 @@ jobs:
           libtiff-dev \
           libwebp-dev
 
-    - name: Install Cross-Compilation Tools for ARM64
-      if: matrix.os == 'ubuntu-latest' && matrix.arch == 'arm64'
-      run: |
-        sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
-
     - name: Install vcpkg on Linux and macOS
       if: runner.os != 'Windows' && matrix.os != 'ubuntu-latest'
       run: |
@@ -81,14 +77,8 @@ jobs:
         ./vcpkg/bootstrap-vcpkg.bat
         ./vcpkg/vcpkg.exe install sdl2 --triplet ${{ matrix.vcpkg-triplet }}
 
-    - name: Configure SDLImage with CMake for ARM64 on Linux
-      if: matrix.os == 'ubuntu-latest' && matrix.arch == 'arm64'
-      run: |
-        cd SDLImage
-        cmake -S ./ -B ./build -DBUILD_SHARED_LIBS=ON -DSDL2IMAGE_SAMPLES=OFF -DSDL2IMAGE_TESTS=OFF -DCMAKE_SYSTEM_PROCESSOR=aarch64 -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++
-
     - name: Configure SDLImage with CMake for Linux
-      if: matrix.os == 'ubuntu-latest'
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'linux'
       run: |
         cd SDLImage
         cmake -S ./ -B ./build -DBUILD_SHARED_LIBS=ON -DSDL2IMAGE_SAMPLES=OFF -DSDL2IMAGE_TESTS=OFF
