@@ -97,24 +97,29 @@ jobs:
           libjpeg-dev \
           libtiff-dev \
           libwebp-dev
-          
+
+    - name: Install Dependencies on macOS
+      if: matrix.os == 'macos-latest'
+      run: |
+        brew install libpng jpeg libtiff webp
+
     - name: Configure SDL with CMake on Linux (x86_64)
       if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
       run: |
        cd SDLImage/SDL
-       cmake -S . -B ./build -DSDL_STATIC=OFF -DSDL_SHARED=ON
+       cmake -S . -B ./build
 
     - name: Configure SDL with CMake for macOS ARM64
       if: matrix.os == 'macos-latest'
       run: |
        cd SDLImage/SDL
-       cmake -S . -B ./build -DCMAKE_OSX_ARCHITECTURES=${{ matrix.cmake-arch }} -DSDL_STATIC=OFF -DSDL_SHARED=ON
+       cmake -S . -B ./build -DCMAKE_OSX_ARCHITECTURES=${{ matrix.cmake-arch }}
 
     - name: Configure SDL with CMake for Windows
       if: matrix.os == 'windows-latest'
       run: |
        cd SDLImage/SDL
-       cmake -S . -B ./build -A ${{ matrix.cmake-arch }} -DSDL_STATIC=OFF -DSDL_SHARED=ON
+       cmake -S . -B ./build -A ${{ matrix.cmake-arch }}
 
     - name: Build SDL2
       run: |
