@@ -13,10 +13,10 @@
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                return "SDL2_image";
+                return "SDL3_image";
             }
 
-            return "libSDL2_image";
+            return "libSDL3_image";
         }
     }
 }
