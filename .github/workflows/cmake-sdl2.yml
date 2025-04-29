@@ -92,12 +92,13 @@ jobs:
           libpng-dev \
           libjpeg-dev \
           libtiff-dev \
-          libwebp-dev
+          libwebp-dev \
+          libavif-dev
 
     - name: Install Dependencies on macOS
       if: matrix.os == 'macos-latest'
       run: |
-        brew install libpng jpeg libtiff webp
+        brew install libpng jpeg libtiff webp libavif libimageio
 
     - name: Configure SDL with CMake on Linux (x86_64)
       if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
@@ -123,6 +124,17 @@ jobs:
        cmake --build ./build --config Release
        cmake --install ./build --config Release --prefix ./install
 
+    - name: SDL2Find workaround on unix based OS.
+      if: runner.os != 'Windows'
+      run: |
+        # hide SDL2Config.cmake so find_package(SDL2) uses FindSDL2.cmake module
+        SDL2_CFG_DIR="SDLImage/SDL/install/lib/cmake/SDL2"
+        if [ -d "$SDL2_CFG_DIR" ]; then
+          for f in "$SDL2_CFG_DIR"/SDL2Config*.cmake; do
+            mv "$f" "${f}.disabled"
+          done
+        fi
+
     - name: Install NASM
       if: runner.os == 'Windows'
       run: choco install nasm
@@ -147,6 +159,11 @@ jobs:
 
     - name: Build SDLImage
       run: cmake --build SDLImage/build --config Release
+
+    - name: Move Windows binaries
+      if: matrix.os == 'windows-latest'
+      run: |
+        mv SDLImage/build/Release/*.dll SDLImage/build/
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4.3.4
